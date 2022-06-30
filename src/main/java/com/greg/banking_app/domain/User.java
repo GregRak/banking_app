@@ -17,7 +17,7 @@ public class User {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "ID_User", unique = true)
+    @Column(name = "ID_USER", unique = true)
     private Long userId;
 
     @NotNull
