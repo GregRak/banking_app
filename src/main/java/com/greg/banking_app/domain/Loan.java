@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -45,4 +46,16 @@ public class Loan {
     @NotNull
     @Column(name = "CURRENCY")
     private CurrencySymbol currencySymbol;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_ACCOUNT")
+    private Account account;
+
+    @OneToMany(
+            targetEntity = Installment.class,
+            mappedBy = "loan",
+            cascade = CascadeType.MERGE,
+            fetch = FetchType.LAZY
+    )
+    private List<Installment> installments;
 }

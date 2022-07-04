@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Getter
@@ -43,4 +44,20 @@ public class User {
     @NotNull
     @Column(name = "IS_ACTIVE")
     private boolean active;
+
+    @OneToMany(
+            targetEntity = UserAddress.class,
+            mappedBy = "user",
+            cascade = CascadeType.MERGE,
+            fetch = FetchType.LAZY
+    )
+    private List<UserAddress> addresses;
+
+    @OneToMany(
+            targetEntity = Account.class,
+            mappedBy = "user",
+            cascade = CascadeType.MERGE,
+            fetch = FetchType.EAGER
+    )
+    private List<Account> accounts;
 }

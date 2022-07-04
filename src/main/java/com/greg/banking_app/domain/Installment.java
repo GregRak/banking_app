@@ -40,4 +40,8 @@ public class Installment {
     @NotNull
     @Column(name = "IS_PAID")
     private boolean paid;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_LOAN")
+    private Loan loan;
 }

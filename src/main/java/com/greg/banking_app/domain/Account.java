@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -43,4 +44,24 @@ public class Account {
     @NotNull
     @Column(name = "IS_ACTIVE")
     private boolean active;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_USER")
+    private User user;
+
+    @OneToMany(
+            targetEntity = Loan.class,
+            mappedBy = "account",
+            cascade = CascadeType.MERGE,
+            fetch = FetchType.LAZY
+    )
+    private List<Loan> loans;
+
+    @OneToMany(
+            targetEntity = Operation.class,
+            mappedBy = "account",
+            cascade = CascadeType.MERGE,
+            fetch = FetchType.LAZY
+    )
+    private List<Operation> operations;
 }

@@ -38,4 +38,8 @@ public class Operation {
     @NotNull
     @Column(name = "DATE")
     private LocalDateTime operationDate;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_ACCOUNT")
+    private Account account;
 }

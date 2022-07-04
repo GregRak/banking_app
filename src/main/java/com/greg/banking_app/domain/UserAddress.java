@@ -35,4 +35,8 @@ public class UserAddress {
     @NotNull
     @Column(name = "IS_CORRESPONDENCE")
     private boolean correspondence;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_USER")
+    private User user;
 }
