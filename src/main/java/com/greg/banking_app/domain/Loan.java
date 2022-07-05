@@ -1,5 +1,6 @@
 package com.greg.banking_app.domain;
 
+import com.greg.banking_app.enums.CurrencySymbol;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

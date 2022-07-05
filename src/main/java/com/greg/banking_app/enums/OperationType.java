@@ -1,4 +1,4 @@
-package com.greg.banking_app.domain;
+package com.greg.banking_app.enums;
 
 public enum OperationType {
 

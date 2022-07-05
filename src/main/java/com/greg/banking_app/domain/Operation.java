@@ -1,12 +1,13 @@
 package com.greg.banking_app.domain;
 
+import com.greg.banking_app.enums.CurrencySymbol;
+import com.greg.banking_app.enums.OperationType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.beans.BeanInfo;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
