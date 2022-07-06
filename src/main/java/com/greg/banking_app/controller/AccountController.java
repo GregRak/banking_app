@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("v1/accounts")
 public class AccountController {
 
-    @GetMapping
-    public String getAccounts() {
+    @GetMapping("{userId}")
+    public String getAccounts(@PathVariable Long userId) {
         return "This is list of accounts";
     }
 
-    @GetMapping("{accountId}")
-    public String getAccount(@PathVariable Long accountId) {
+    @GetMapping("{userId}/{accountId}")
+    public String getAccount(@PathVariable Long userId, @PathVariable Long accountId) {
         return "This is specific account";
     }
 
