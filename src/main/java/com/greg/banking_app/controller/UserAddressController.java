@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.*;
 public class UserAddressController {
 
     @GetMapping("{userId}")
-    public String getAddress(@PathVariable Long userId) {
+    public String getUserAddresses(@PathVariable Long userId) {
         return "List of user addresses";
     }
 
     @GetMapping("{userId}/{addressId}")
-    public String getAddress(@PathVariable Long userId, @PathVariable Long addressId) {
+    public String getUserAddress(@PathVariable Long userId, @PathVariable Long addressId) {
         return "Specific address";
     }
 
@@ -26,8 +26,8 @@ public class UserAddressController {
         return "Addres has been updated";
     }
 
-    @DeleteMapping("{userId}/{addressId}")
-    public String deleteAddress(@PathVariable Long userId, @PathVariable Long addressId) {
+    @DeleteMapping("{addressId}")
+    public String deleteAddress(@PathVariable Long addressId) {
         return "Address deleted";
     }
 }
