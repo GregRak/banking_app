@@ -48,6 +48,10 @@ public class Loan {
     @Column(name = "CURRENCY")
     private CurrencySymbol currencySymbol;
 
+    @NotNull
+    @Column(name = "IS_ACTIVE")
+    private boolean active;
+
     @ManyToOne
     @JoinColumn(name = "ID_ACCOUNT")
     private Account account;

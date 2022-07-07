@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("v1/loans")
 public class LoanController {
 
-    @GetMapping
+    @GetMapping("{accountId}")
     public String getLoans() {
         return "This is list of Loans";
     }
 
-    @GetMapping("{loanId}")
+    @GetMapping("loan/{loanId}")
     public String getLoan(@PathVariable Long loanId) {
         return "This is specific loan";
     }
