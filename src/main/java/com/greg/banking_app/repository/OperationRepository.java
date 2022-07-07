@@ -14,7 +14,8 @@ import java.util.List;
 @Transactional
 public interface OperationRepository extends JpaRepository<Operation, Long> {
 
-    List<Operation> findByOperationDate(LocalDateTime dateTime);
-    List<Operation> findByCurrencySymbol(CurrencySymbol currencySymbol);
-    List<Operation> findByOperationType(OperationType operationType);
+    List<Operation> findByAccount_AccountIdAndOperationDate(Long accountId, LocalDateTime operationDate);
+    List<Operation> findByAccount_AccountIdAndOperationDateAfterAndOperationType(Long accountId, LocalDateTime startDate, OperationType operationType);
+    List<Operation> findByAccount_AccountId(Long accountId);
+    List<Operation> findByAccount_AccountIdAndOperationDateIsBetweenOrderByOperationDate(Long accountId, LocalDateTime rangeStart, LocalDateTime rangeEnd);
 }
