@@ -6,18 +6,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("v1/installments")
 public class InstallmentController {
 
-    @GetMapping("{loanId}")
+    @GetMapping("loan/{loanId}")
     public String getInstallments(@PathVariable Long loanId) {
         return "This is list of Installments";
     }
 
     @GetMapping("{loanId}/{installmentId}")
-    public String getLoan(@PathVariable Long loanId, @PathVariable Long installmentId) {
+    public String getInstallment(@PathVariable Long loanId, @PathVariable Long installmentId) {
         return "This is specific installment";
     }
 
     @PutMapping
-    public String updateLoan() {
+    public String updateInstallment() {
         return "loan updated";
     }
 }
