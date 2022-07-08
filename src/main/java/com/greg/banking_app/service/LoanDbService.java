@@ -17,7 +17,7 @@ public class LoanDbService {
     private final LoanRepository loanRepository;
     private final AccountRepository accountRepository;
 
-    public List<Loan> getAccountLoans(Long accountId) throws AccountNotFoundException {
+    public List<Loan> getAccountLoans(final Long accountId) throws AccountNotFoundException {
         if(accountRepository.existsById(accountId)) {
             return loanRepository.findByAccount_AccountId(accountId);
         } else {
@@ -25,15 +25,15 @@ public class LoanDbService {
         }
     }
 
-    public Loan getLoan(Long loanId) throws LoanNotFoundException {
+    public Loan getLoan(final Long loanId) throws LoanNotFoundException {
         return loanRepository.findById(loanId).orElseThrow(LoanNotFoundException::new);
     }
 
-    public Loan createLoan(Loan loan) {
+    public Loan createLoan(final Loan loan) {
         return loanRepository.save(loan);
     }
 
-    public void deactiveLoan(Long loanId) throws LoanNotFoundException {
+    public void deActiveLoan(final Long loanId) throws LoanNotFoundException {
         if(loanRepository.existsById(loanId)) {
             Loan currentLoan = loanRepository.findById(loanId).get();
             currentLoan.setActive(false);
@@ -43,7 +43,7 @@ public class LoanDbService {
         }
     }
 
-    public Loan updateLoan(Loan loan) throws LoanNotFoundException {
+    public Loan updateLoan(final Loan loan) throws LoanNotFoundException {
         if(loanRepository.existsById(loan.getLoanId())) {
             return loanRepository.save(loan);
         } else {

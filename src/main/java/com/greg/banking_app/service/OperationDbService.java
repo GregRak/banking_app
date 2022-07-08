@@ -19,7 +19,7 @@ public class OperationDbService {
     private final OperationRepository operationRepository;
     private final AccountRepository accountRepository;
 
-    public List<Operation> getAccountOperations(Long accountId) throws AccountNotFoundException {
+    public List<Operation> getAccountOperations(final Long accountId) throws AccountNotFoundException {
         if(accountRepository.existsById(accountId)) {
             return operationRepository.findByAccount_AccountId(accountId);
         } else {
@@ -27,12 +27,12 @@ public class OperationDbService {
         }
     }
 
-    public Operation getOperation(Long operationId) throws OperationNotFoundException {
+    public Operation getOperation(final Long operationId) throws OperationNotFoundException {
         return operationRepository.findById(operationId).orElseThrow(OperationNotFoundException::new);
     }
 
     public List<Operation> getAccountDateRangeOperations(
-            Long accountId, LocalDateTime rangeStart, LocalDateTime rangeEnd) throws AccountNotFoundException {
+            final Long accountId, final LocalDateTime rangeStart, final LocalDateTime rangeEnd) throws AccountNotFoundException {
         if(accountRepository.existsById(accountId)) {
             return operationRepository.findByAccount_AccountIdAndOperationDateIsBetweenOrderByOperationDate(
                     accountId, rangeStart, rangeEnd
@@ -43,7 +43,7 @@ public class OperationDbService {
     }
 
     public List<Operation> getAccountFromDateAndTypeOperations(
-            Long accountId, LocalDateTime fromDate, OperationType operationType) throws AccountNotFoundException {
+            final Long accountId, final LocalDateTime fromDate, final OperationType operationType) throws AccountNotFoundException {
         if(accountRepository.existsById(accountId)) {
             return operationRepository.findByAccount_AccountIdAndOperationDateAfterAndOperationType(
                     accountId, fromDate, operationType
@@ -53,7 +53,7 @@ public class OperationDbService {
         }
     }
 
-    public List<Operation> getOperationOfTheDay(Long accountId, LocalDateTime date) throws AccountNotFoundException {
+    public List<Operation> getOperationOfTheDay(final Long accountId, final LocalDateTime date) throws AccountNotFoundException {
         if(accountRepository.existsById(accountId)) {
             return operationRepository.findByAccount_AccountIdAndOperationDate(accountId, date);
         } else {
@@ -61,7 +61,7 @@ public class OperationDbService {
         }
     }
 
-    public Operation createOperation(Operation operation) throws OperationNotFoundException {
+    public Operation createOperation(final Operation operation) throws OperationNotFoundException {
         if(operationRepository.existsById(operation.getOperationId())) {
             return operationRepository.save(operation);
         } else {

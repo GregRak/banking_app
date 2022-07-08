@@ -17,7 +17,7 @@ public class UserAddressDbService {
     private final UserAddressRepository userAddressRepository;
     private final UserRepository userRepository;
 
-    public List<UserAddress> getUserAddresses(Long userId) throws UserNotFoundException {
+    public List<UserAddress> getUserAddresses(final Long userId) throws UserNotFoundException {
         if(userRepository.existsById(userId)) {
             return userAddressRepository.findByUser_UserId(userId);
         } else {
@@ -25,7 +25,7 @@ public class UserAddressDbService {
         }
     }
 
-    public UserAddress getUserAddress(Long userId, Long addressId) throws UserNotFoundException, UserAddressNotFoundException {
+    public UserAddress getUserAddress(final Long userId, final Long addressId) throws UserNotFoundException, UserAddressNotFoundException {
         if(userRepository.existsById(userId)) {
             if(userAddressRepository.existsById(addressId)) {
                 return userAddressRepository.findByUser_UserIdAndAddressId(userId, addressId);
@@ -37,11 +37,11 @@ public class UserAddressDbService {
         }
     }
 
-    public UserAddress createUserAddress(UserAddress userAddress) {
+    public UserAddress createUserAddress(final UserAddress userAddress) {
         return userAddressRepository.save(userAddress);
     }
 
-    public UserAddress updateUserAddress(UserAddress userAddress) throws UserAddressNotFoundException {
+    public UserAddress updateUserAddress(final UserAddress userAddress) throws UserAddressNotFoundException {
         if(userAddressRepository.existsById(userAddress.getAddressId())) {
             return userAddressRepository.save(userAddress);
         } else {
@@ -49,7 +49,7 @@ public class UserAddressDbService {
         }
     }
 
-    public void deleteUserAddress(Long addressId) throws UserAddressNotFoundException {
+    public void deleteUserAddress(final Long addressId) throws UserAddressNotFoundException {
         if(userAddressRepository.existsById(addressId)) {
             userAddressRepository.deleteById(addressId);
         } else {

@@ -17,7 +17,7 @@ public class AccountDbService {
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
 
-    public List<Account> getUserAccounts(Long userId) throws UserNotFoundException {
+    public List<Account> getUserAccounts(final Long userId) throws UserNotFoundException {
         if(userRepository.existsById(userId)) {
             return accountRepository.findByUser_UserId(userId);
         } else {
@@ -25,7 +25,7 @@ public class AccountDbService {
         }
     }
 
-    public Account getUserAccount(Long userId, Long accountId) throws AccountNotFoundException, UserNotFoundException {
+    public Account getUserAccount(final Long userId, final Long accountId) throws AccountNotFoundException, UserNotFoundException {
         if(userRepository.existsById(userId)) {
             if(accountRepository.existsById(accountId)) {
                 return accountRepository.findByUser_UserIdAndAccountId(userId, accountId);
@@ -37,11 +37,11 @@ public class AccountDbService {
         }
     }
 
-    public Account createAccount(Account account) {
+    public Account createAccount(final Account account) {
         return accountRepository.save(account);
     }
 
-    public void deactiveAccount(Long id) throws AccountNotFoundException {
+    public void deActiveAccount(final Long id) throws AccountNotFoundException {
         if(accountRepository.existsById(id)) {
             Account currentAccount = accountRepository.findById(id).orElseThrow(AccountNotFoundException::new);
             currentAccount.setActive(false);
@@ -51,7 +51,7 @@ public class AccountDbService {
         }
     }
 
-    public Account updateAccount(Account account) throws AccountNotFoundException {
+    public Account updateAccount(final Account account) throws AccountNotFoundException {
         if(accountRepository.existsById(account.getAccountId())) {
             return accountRepository.save(account);
         } else {

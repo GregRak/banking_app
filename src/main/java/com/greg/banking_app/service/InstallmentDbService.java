@@ -17,7 +17,7 @@ public class InstallmentDbService {
     private final InstallmentRepository installmentRepository;
     private final LoanRepository loanRepository;
 
-    public List<Installment> getAllLoanInstallment(final Long loanId) throws LoanNotFoundException {
+    public List<Installment> getLoanInstallments(final Long loanId) throws LoanNotFoundException {
         if(loanRepository.existsById(loanId)) {
             return installmentRepository.findByLoan_LoanId(loanId);
         } else {

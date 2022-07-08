@@ -18,15 +18,15 @@ public class UserDbService {
         return userRepository.findAll();
     }
 
-    public User getUser(Long userId) throws UserNotFoundException {
+    public User getUser(final Long userId) throws UserNotFoundException {
         return userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
     }
 
-    public User createUser(User user) {
+    public User createUser(final User user) {
         return userRepository.save(user);
     }
 
-    public void deactiveUser(Long userId) throws UserNotFoundException {
+    public void deActiveUser(final Long userId) throws UserNotFoundException {
         if(userRepository.existsById(userId)) {
             User currentUser = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
             currentUser.setActive(false);
@@ -36,7 +36,7 @@ public class UserDbService {
         }
     }
 
-    public User updateUser(User user) throws UserNotFoundException {
+    public User updateUser(final User user) throws UserNotFoundException {
         if(userRepository.existsById(user.getUserId())) {
             return userRepository.save(user);
         } else {
