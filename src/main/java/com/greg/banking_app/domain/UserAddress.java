@@ -1,5 +1,6 @@
 package com.greg.banking_app.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "USER_ADDRESS")
 public class UserAddress {
 
@@ -39,4 +41,12 @@ public class UserAddress {
     @ManyToOne
     @JoinColumn(name = "ID_USER")
     private User user;
+
+    public UserAddress(String addressLine, String zipCode, String city, boolean correspondence, User user) {
+        this.addressLine = addressLine;
+        this.zipCode = zipCode;
+        this.city = city;
+        this.correspondence = correspondence;
+        this.user = user;
+    }
 }
