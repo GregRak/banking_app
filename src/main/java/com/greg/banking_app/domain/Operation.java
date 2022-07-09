@@ -2,6 +2,7 @@ package com.greg.banking_app.domain;
 
 import com.greg.banking_app.enums.CurrencySymbol;
 import com.greg.banking_app.enums.OperationType;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "OPERATIONS")
 public class Operation {
 
