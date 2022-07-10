@@ -5,6 +5,7 @@ import com.greg.banking_app.domain.UserAddress;
 import com.greg.banking_app.dto.useraddress.UserAddressDto;
 import com.greg.banking_app.exception.UserNotFoundException;
 import com.greg.banking_app.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserAddressMapper {
 
+    @Autowired
     private UserRepository userRepository;
 
     public UserAddress mapToUserAddress(final UserAddressDto userAddressDto) throws UserNotFoundException {

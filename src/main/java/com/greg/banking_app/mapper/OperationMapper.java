@@ -5,6 +5,7 @@ import com.greg.banking_app.domain.Operation;
 import com.greg.banking_app.dto.operation.OperationDto;
 import com.greg.banking_app.exception.AccountNotFoundException;
 import com.greg.banking_app.repository.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public class OperationMapper {
 
+    @Autowired
     private AccountRepository accountRepository;
 
     public Operation mapToOperation(final OperationDto operationDto) throws AccountNotFoundException {

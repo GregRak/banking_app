@@ -5,6 +5,7 @@ import com.greg.banking_app.domain.Loan;
 import com.greg.banking_app.dto.installment.InstallmentDto;
 import com.greg.banking_app.exception.LoanNotFoundException;
 import com.greg.banking_app.repository.LoanRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public class InstallmentMapper {
 
+    @Autowired
     private LoanRepository loanRepository;
 
     public Installment mapToInstallment(final InstallmentDto installmentDto) throws LoanNotFoundException {
