@@ -1,6 +1,7 @@
 package com.greg.banking_app.domain;
 
 import com.greg.banking_app.enums.CurrencySymbol;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "LOANS")
 public class Loan {
 
@@ -63,4 +65,16 @@ public class Loan {
             fetch = FetchType.LAZY
     )
     private List<Installment> installments;
+
+    public Loan(Long loanId, BigDecimal startValue, BigDecimal currentValue, BigDecimal interestRate, LocalDateTime startDate, LocalDateTime endDate, CurrencySymbol currencySymbol, boolean active, Account account) {
+        this.loanId = loanId;
+        this.startValue = startValue;
+        this.currentValue = currentValue;
+        this.interestRate = interestRate;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.currencySymbol = currencySymbol;
+        this.active = active;
+        this.account = account;
+    }
 }
