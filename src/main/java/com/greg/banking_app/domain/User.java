@@ -1,5 +1,6 @@
 package com.greg.banking_app.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "USERS")
 public class User {
 
@@ -60,4 +62,14 @@ public class User {
             fetch = FetchType.EAGER
     )
     private List<Account> accounts;
+
+    public User(Long userId, String peselNumber, String firstName, String lastName, String email, String telephone, boolean active) {
+        this.userId = userId;
+        this.peselNumber = peselNumber;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.telephone = telephone;
+        this.active = active;
+    }
 }

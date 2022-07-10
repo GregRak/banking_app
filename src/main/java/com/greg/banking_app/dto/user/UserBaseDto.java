@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class UserOnlyDataDto {
+public class UserBaseDto {
 
     private Long userId;
     private String peselNumber;
