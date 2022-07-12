@@ -72,4 +72,13 @@ public class User {
         this.telephone = telephone;
         this.active = active;
     }
+
+    public User(String peselNumber, String firstName, String lastName, String email, String telephone) {
+        this.peselNumber = peselNumber;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.telephone = telephone;
+        this.active = true;
+    }
 }

@@ -2,6 +2,7 @@ package com.greg.banking_app.mapper;
 
 import com.greg.banking_app.domain.User;
 import com.greg.banking_app.dto.user.UserBaseDto;
+import com.greg.banking_app.dto.user.UserCreateDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,16 @@ public class UserMapper {
                 userDto.getEmail(),
                 userDto.getTelephone(),
                 userDto.isActive()
+        );
+    }
+
+    public User mapToUserCreate(final UserCreateDto userDto) {
+        return new User(
+                userDto.getPeselNumber(),
+                userDto.getFirstName(),
+                userDto.getLastName(),
+                userDto.getEmail(),
+                userDto.getTelephone()
         );
     }
 
