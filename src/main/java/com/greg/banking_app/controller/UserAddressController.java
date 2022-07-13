@@ -1,33 +1,51 @@
 package com.greg.banking_app.controller;
 
+import com.greg.banking_app.domain.UserAddress;
+import com.greg.banking_app.dto.useraddress.UserAddressDto;
+import com.greg.banking_app.exception.UserAddressNotFoundException;
+import com.greg.banking_app.exception.UserNotFoundException;
+import com.greg.banking_app.mapper.UserAddressMapper;
+import com.greg.banking_app.service.UserAddressDbService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("v1/addresses")
+@RequiredArgsConstructor
 public class UserAddressController {
 
+    private UserAddressDbService userAddressDbService;
+    private UserAddressMapper userAddressMapper;
+
     @GetMapping("{userId}")
-    public String getUserAddresses(@PathVariable Long userId) {
-        return "List of user addresses";
+    public ResponseEntity<List<UserAddressDto>> getUserAddresses(@PathVariable Long userId) throws UserNotFoundException {
+        return ResponseEntity.ok(userAddressMapper.mapToUserAddressDtoList(userAddressDbService.getUserAddresses(userId)));
     }
 
     @GetMapping("{userId}/{addressId}")
-    public String getUserAddress(@PathVariable Long userId, @PathVariable Long addressId) {
-        return "Specific address";
+    public ResponseEntity<UserAddressDto> getUserAddress(@PathVariable Long userId, @PathVariable Long addressId) throws UserNotFoundException, UserAddressNotFoundException {
+        return ResponseEntity.ok(userAddressMapper.mapToUserAddressDto(userAddressDbService.getUserAddress(userId, addressId)));
     }
 
-    @PostMapping
-    public String createAddress() {
-        return "Address has been greate";
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserAddressDto> createAddress(@RequestBody UserAddressDto userAddressDto) throws UserNotFoundException {
+        UserAddress userAddress = userAddressMapper.mapToUserAddress(userAddressDto);
+        return ResponseEntity.ok(userAddressMapper.mapToUserAddressDto(userAddressDbService.createUserAddress(userAddress)));
     }
 
-    @PutMapping
-    public String updateAddress() {
-        return "Addres has been updated";
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserAddressDto> updateAddress(@RequestBody UserAddressDto userAddressDto) throws UserNotFoundException, UserAddressNotFoundException {
+        UserAddress userAddress = userAddressMapper.mapToUserAddress(userAddressDto);
+        return ResponseEntity.ok(userAddressMapper.mapToUserAddressDto(userAddressDbService.updateUserAddress(userAddress)));
     }
 
     @DeleteMapping("{addressId}")
-    public String deleteAddress(@PathVariable Long addressId) {
-        return "Address deleted";
+    public String deleteAddress(@PathVariable Long addressId) throws UserAddressNotFoundException {
+        userAddressDbService.deleteUserAddress(addressId);
+        return "Address with id: " + addressId + " deleted";
     }
 }
