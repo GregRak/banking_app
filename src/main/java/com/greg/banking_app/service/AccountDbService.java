@@ -5,6 +5,7 @@ import com.greg.banking_app.exception.AccountNotFoundException;
 import com.greg.banking_app.exception.UserNotFoundException;
 import com.greg.banking_app.repository.AccountRepository;
 import com.greg.banking_app.repository.UserRepository;
+import com.greg.banking_app.utils.AccountNumberGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ public class AccountDbService {
 
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
+    private final AccountNumberGenerator numberGenerator;
 
     public List<Account> getUserAccounts(final Long userId) throws UserNotFoundException {
         if(userRepository.existsById(userId)) {
@@ -38,7 +40,11 @@ public class AccountDbService {
     }
 
     public Account createAccount(final Account account) {
-        return accountRepository.save(account);
+        Account processedAccount = accountRepository.save(account);
+        Long id = processedAccount.getAccountId();
+        String newAccountNumber = numberGenerator.generateStandardNumber(id);
+        processedAccount.setAccountNumber(newAccountNumber);
+        return accountRepository.save(processedAccount);
     }
 
     public void deActiveAccount(final Long id) throws AccountNotFoundException {
@@ -51,11 +57,11 @@ public class AccountDbService {
         }
     }
 
-    public Account updateAccount(final Account account) throws AccountNotFoundException {
-        if(accountRepository.existsById(account.getAccountId())) {
-            return accountRepository.save(account);
-        } else {
-            throw new AccountNotFoundException();
-        }
-    }
+//    public Account updateAccount(final Account account) throws AccountNotFoundException {
+//        if(accountRepository.existsById(account.getAccountId())) {
+//            return accountRepository.save(account);
+//        } else {
+//            throw new AccountNotFoundException();
+//        }
+//    }
 }

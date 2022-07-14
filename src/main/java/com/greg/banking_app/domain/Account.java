@@ -28,7 +28,7 @@ public class Account {
 
     @NotNull
     @Column(name = "ACCOUNT_NUMBER", unique = true)
-    private Long accountNumber;
+    private String accountNumber;
 
     @Column(name = "ACCOUNT_OPEN_DATE")
     private LocalDateTime openDate;
@@ -68,7 +68,7 @@ public class Account {
     )
     private List<Operation> operations;
 
-    public Account(Long accountId, Long accountNumber, LocalDateTime openDate, LocalDateTime closeDate, BigDecimal presentValue, CurrencySymbol currencySymbol, boolean active, User user) {
+    public Account(Long accountId, String accountNumber, LocalDateTime openDate, LocalDateTime closeDate, BigDecimal presentValue, CurrencySymbol currencySymbol, boolean active, User user) {
         this.accountId = accountId;
         this.accountNumber = accountNumber;
         this.openDate = openDate;
@@ -76,6 +76,16 @@ public class Account {
         this.presentValue = presentValue;
         this.currencySymbol = currencySymbol;
         this.active = active;
+        this.user = user;
+    }
+
+    public Account(CurrencySymbol currencySymbol, User user) {
+        this.accountNumber = "";
+        this.openDate = LocalDateTime.now();
+        this.closeDate = null;
+        this.presentValue = BigDecimal.ZERO;
+        this.currencySymbol = currencySymbol;
+        this.active = true;
         this.user = user;
     }
 }

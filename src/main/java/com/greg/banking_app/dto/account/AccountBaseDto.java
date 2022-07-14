@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class AccountBaseDto {
 
     private Long accountId;
-    private Long accountNumber;
+    private String accountNumber;
     private LocalDateTime openDate;
     private LocalDateTime closeDate;
     private BigDecimal presentValue;
