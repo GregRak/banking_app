@@ -45,4 +45,12 @@ public class Operation {
     @ManyToOne
     @JoinColumn(name = "ID_ACCOUNT")
     private Account account;
+
+    public Operation(OperationType operationType, BigDecimal operationValue, CurrencySymbol currencySymbol, Account account) {
+        this.operationType = operationType;
+        this.operationValue = operationValue;
+        this.currencySymbol = currencySymbol;
+        this.operationDate = LocalDateTime.now();
+        this.account = account;
+    }
 }

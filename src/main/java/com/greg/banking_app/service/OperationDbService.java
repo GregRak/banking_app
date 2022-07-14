@@ -53,19 +53,7 @@ public class OperationDbService {
         }
     }
 
-    public List<Operation> getOperationOfTheDay(final Long accountId, final LocalDateTime date) throws AccountNotFoundException {
-        if(accountRepository.existsById(accountId)) {
-            return operationRepository.findByAccount_AccountIdAndOperationDate(accountId, date);
-        } else {
-            throw new AccountNotFoundException();
-        }
-    }
-
-    public Operation createOperation(final Operation operation) throws OperationNotFoundException {
-        if(operationRepository.existsById(operation.getOperationId())) {
+    public Operation createOperation(final Operation operation) {
             return operationRepository.save(operation);
-        } else {
-            throw new OperationNotFoundException();
-        }
     }
 }

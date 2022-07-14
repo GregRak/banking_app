@@ -1,39 +1,56 @@
 package com.greg.banking_app.controller;
 
+import com.greg.banking_app.domain.Operation;
+import com.greg.banking_app.dto.operation.OperationCreateDto;
+import com.greg.banking_app.dto.operation.OperationDateTypeDto;
+import com.greg.banking_app.dto.operation.OperationDto;
+import com.greg.banking_app.dto.operation.OperationRangeDto;
+import com.greg.banking_app.exception.AccountNotFoundException;
+import com.greg.banking_app.exception.OperationNotFoundException;
+import com.greg.banking_app.mapper.OperationMapper;
+import com.greg.banking_app.service.OperationDbService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "v1/operations")
+@RequiredArgsConstructor
 public class OperationController {
 
+    private OperationDbService operationDbService;
+    private OperationMapper operationMapper;
+
     @GetMapping("/account/{accountId}")
-    public String getOperations(@PathVariable Long accountId) {
-        return "This is list of operations";
+    public ResponseEntity<List<OperationDto>> getOperations(@PathVariable Long accountId) throws AccountNotFoundException {
+        return ResponseEntity.ok(operationMapper.mapToOperationDtoList(operationDbService.getAccountOperations(accountId)));
     }
 
     @GetMapping(value = "dateRange", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String getDateRangeOperations(@RequestBody String cos) {
-        return "Description";
+    public ResponseEntity<List<OperationDto>> getDateRangeOperations(@RequestBody OperationRangeDto operationRangeDto) throws AccountNotFoundException {
+       return ResponseEntity.ok(operationMapper.mapToOperationDtoList(
+               operationDbService.getAccountDateRangeOperations(
+                       operationRangeDto.getAccountId(), operationRangeDto.getRangeStartDate(), operationRangeDto.getRangeEndDate())));
     }
 
     @GetMapping(value = "date/type", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void getDateAndTypeOperations(@RequestBody String cos) {
-        //do something
+    public ResponseEntity<List<OperationDto>> getDateAndTypeOperations(@RequestBody OperationDateTypeDto operationDateTypeDto) throws AccountNotFoundException {
+        return ResponseEntity.ok(operationMapper.mapToOperationDtoList(
+                operationDbService.getAccountFromDateAndTypeOperations(
+                        operationDateTypeDto.getAccountId(), operationDateTypeDto.getDate(), operationDateTypeDto.getOperationType())));
     }
 
     @GetMapping("/operation/{operationId}")
-    public String getOperation(@PathVariable Long operationId) {
-        return "This is a specific operation";
-    }
-
-    @GetMapping(value = "date", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void getOperationsOfTheDay(@RequestBody String cos) {
-        //Do something
+    public ResponseEntity<OperationDto> getOperation(@PathVariable Long operationId) throws OperationNotFoundException {
+        return ResponseEntity.ok(operationMapper.mapToOperationDto(operationDbService.getOperation(operationId)));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String addOperation(@RequestBody String cos) {
-        return "Operation ok";
+    public ResponseEntity<OperationDto> addOperation(@RequestBody OperationCreateDto operationDto) throws AccountNotFoundException {
+        Operation operation = operationMapper.mapToCreateOperation(operationDto);
+        return ResponseEntity.ok(operationMapper.mapToOperationDto(operationDbService.createOperation(operation)));
     }
 }

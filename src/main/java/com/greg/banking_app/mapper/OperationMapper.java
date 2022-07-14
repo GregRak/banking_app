@@ -2,6 +2,7 @@ package com.greg.banking_app.mapper;
 
 import com.greg.banking_app.domain.Account;
 import com.greg.banking_app.domain.Operation;
+import com.greg.banking_app.dto.operation.OperationCreateDto;
 import com.greg.banking_app.dto.operation.OperationDto;
 import com.greg.banking_app.exception.AccountNotFoundException;
 import com.greg.banking_app.repository.AccountRepository;
@@ -42,5 +43,15 @@ public class OperationMapper {
         return list.stream()
                 .map(this::mapToOperationDto)
                 .collect(Collectors.toList());
+    }
+
+    public Operation mapToCreateOperation(final OperationCreateDto operationCreateDto) throws AccountNotFoundException {
+        Account account = accountRepository.findById(operationCreateDto.getAccountId()).orElseThrow(AccountNotFoundException::new);
+        return new Operation(
+                operationCreateDto.getOperationType(),
+                operationCreateDto.getOperationValue(),
+                operationCreateDto.getCurrencySymbol(),
+                account
+        );
     }
 }
