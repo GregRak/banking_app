@@ -84,8 +84,8 @@ public class Loan {
     }
 
     public Loan(BigDecimal startValue, BigDecimal interestRate, int period, CurrencySymbol currencySymbol, Account account) {
-        this.startValue = startValue;
-        this.currentValue = startValue;
+        this.startValue =  startValue;
+        this.currentValue = startValue.add((startValue.multiply(interestRate)).divide(new BigDecimal(100)));
         this.interestRate = interestRate;
         this.startDate = LocalDateTime.now();
         this.endDate = LocalDateTime.now().plusMonths(period);

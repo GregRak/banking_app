@@ -46,4 +46,13 @@ public class Installment {
     @ManyToOne
     @JoinColumn(name = "ID_LOAN")
     private Loan loan;
+
+    public Installment(BigDecimal installmentValue, LocalDateTime dueDate, Loan loan) {
+        this.installmentValue = installmentValue;
+        this.leftToPay = installmentValue;
+        this.dueDate = dueDate;
+        this.paymentDate = null;
+        this.paid = false;
+        this.loan = loan;
+    }
 }
