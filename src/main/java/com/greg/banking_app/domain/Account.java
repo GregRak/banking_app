@@ -9,7 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -31,10 +31,10 @@ public class Account {
     private String accountNumber;
 
     @Column(name = "ACCOUNT_OPEN_DATE")
-    private LocalDateTime openDate;
+    private LocalDate openDate;
 
     @Column(name = "ACCOUNT_CLOSE_DATE")
-    private LocalDateTime closeDate;
+    private LocalDate closeDate;
 
     @NotNull
     @Column(name = "PRESENT_VALUE")
@@ -68,7 +68,7 @@ public class Account {
     )
     private List<Operation> operations;
 
-    public Account(Long accountId, String accountNumber, LocalDateTime openDate, LocalDateTime closeDate, BigDecimal presentValue, CurrencySymbol currencySymbol, boolean active, User user) {
+    public Account(Long accountId, String accountNumber, LocalDate openDate, LocalDate closeDate, BigDecimal presentValue, CurrencySymbol currencySymbol, boolean active, User user) {
         this.accountId = accountId;
         this.accountNumber = accountNumber;
         this.openDate = openDate;
@@ -81,7 +81,7 @@ public class Account {
 
     public Account(CurrencySymbol currencySymbol, User user) {
         this.accountNumber = "";
-        this.openDate = LocalDateTime.now();
+        this.openDate = LocalDate.now();
         this.closeDate = null;
         this.presentValue = BigDecimal.ZERO;
         this.currencySymbol = currencySymbol;

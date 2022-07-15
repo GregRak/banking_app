@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -17,8 +17,8 @@ public class LoanDto {
     private BigDecimal startValue;
     private BigDecimal currentValue;
     private BigDecimal interestRate;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private int period;
     private CurrencySymbol currencySymbol;
     private boolean active;
@@ -30,8 +30,8 @@ public class LoanDto {
         private BigDecimal startValue;
         private BigDecimal currentValue;
         private BigDecimal interestRate;
-        private LocalDateTime startDate;
-        private LocalDateTime endDate;
+        private LocalDate startDate;
+        private LocalDate endDate;
         private int period;
         private CurrencySymbol currencySymbol;
         private boolean active;
@@ -58,12 +58,12 @@ public class LoanDto {
             return this;
         }
 
-        public LoanDtoBuilder startDate(LocalDateTime startDate) {
+        public LoanDtoBuilder startDate(LocalDate startDate) {
             this.startDate = startDate;
             return this;
         }
 
-        public LoanDtoBuilder endDate(LocalDateTime endDate) {
+        public LoanDtoBuilder endDate(LocalDate endDate) {
             this.endDate = endDate;
             return this;
         }

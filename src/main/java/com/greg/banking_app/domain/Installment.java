@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -34,10 +34,10 @@ public class Installment {
 
     @NotNull
     @Column(name = "DUE_DATE")
-    private LocalDateTime dueDate;
+    private LocalDate dueDate;
 
     @Column(name = "PAYMENT_DATE")
-    private LocalDateTime paymentDate;
+    private LocalDate paymentDate;
 
     @NotNull
     @Column(name = "IS_PAID")
@@ -47,7 +47,7 @@ public class Installment {
     @JoinColumn(name = "ID_LOAN")
     private Loan loan;
 
-    public Installment(BigDecimal installmentValue, LocalDateTime dueDate, Loan loan) {
+    public Installment(BigDecimal installmentValue, LocalDate dueDate, Loan loan) {
         this.installmentValue = installmentValue;
         this.leftToPay = installmentValue;
         this.dueDate = dueDate;
