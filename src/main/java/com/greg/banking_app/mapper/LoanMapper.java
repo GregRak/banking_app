@@ -2,7 +2,8 @@ package com.greg.banking_app.mapper;
 
 import com.greg.banking_app.domain.Account;
 import com.greg.banking_app.domain.Loan;
-import com.greg.banking_app.dto.loan.LoanDto;
+import com.greg.banking_app.dto.loan.LoanBaseDto;
+import com.greg.banking_app.dto.loan.LoanCreateDto;
 import com.greg.banking_app.exception.AccountNotFoundException;
 import com.greg.banking_app.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,42 +17,50 @@ public class LoanMapper {
 
     @Autowired
     private AccountRepository accountRepository;
-    @Autowired
-    private InstallmentMapper installmentMapper;
 
-    public Loan mapToLoan(final LoanDto loanDto) throws AccountNotFoundException {
-        Account currentAccount = accountRepository.findById(loanDto.getAccountId()).orElseThrow(AccountNotFoundException::new);
+    public Loan mapToLoan(final LoanBaseDto loanBaseDto) throws AccountNotFoundException {
+        Account currentAccount = accountRepository.findById(loanBaseDto.getAccountId()).orElseThrow(AccountNotFoundException::new);
         return new Loan(
-                loanDto.getLoanId(),
-                loanDto.getStartValue(),
-                loanDto.getCurrentValue(),
-                loanDto.getInterestRate(),
-                loanDto.getStartDate(),
-                loanDto.getEndDate(),
-                loanDto.getCurrencySymbol(),
-                loanDto.isActive(),
+                loanBaseDto.getLoanId(),
+                loanBaseDto.getStartValue(),
+                loanBaseDto.getCurrentValue(),
+                loanBaseDto.getInterestRate(),
+                loanBaseDto.getStartDate(),
+                loanBaseDto.getEndDate(),
+                loanBaseDto.getCurrencySymbol(),
+                loanBaseDto.isActive(),
                 currentAccount
         );
     }
 
-    public LoanDto mapToLoanDto(final Loan loan) {
-        return new LoanDto.LoanDtoBuilder()
-                .loanId(loan.getLoanId())
-                .startValue(loan.getStartValue())
-                .currentValue(loan.getCurrentValue())
-                .interestRate(loan.getInterestRate())
-                .startDate(loan.getStartDate())
-                .endDate(loan.getEndDate())
-                .currencySymbol(loan.getCurrencySymbol())
-                .active(loan.isActive())
-                .accountId(loan.getAccount().getAccountId())
-                .installments(installmentMapper.mapToInstallmentDtoList(loan.getInstallments()))
-                .build();
+    public List<LoanBaseDto> mapToLoanBaseDtoList(final List<Loan> list) {
+        return list.stream()
+                .map(this::mapToLoanBaseDto)
+                .collect(Collectors.toList());
     }
 
-    public List<LoanDto> mapToLoanDtoList(final List<Loan> list) {
-        return list.stream()
-                .map(this::mapToLoanDto)
-                .collect(Collectors.toList());
+    public LoanBaseDto mapToLoanBaseDto(final Loan loan) {
+        return new LoanBaseDto(
+                loan.getLoanId(),
+                loan.getStartValue(),
+                loan.getCurrentValue(),
+                loan.getInterestRate(),
+                loan.getStartDate(),
+                loan.getEndDate(),
+                loan.getCurrencySymbol(),
+                loan.isActive(),
+                loan.getAccount().getAccountId()
+        );
+    }
+
+    public Loan mapToLoanCreate(final LoanCreateDto loanCreateDto) throws AccountNotFoundException {
+        Account account = accountRepository.findById(loanCreateDto.getAccountId()).orElseThrow(AccountNotFoundException::new);
+        return new Loan(
+                loanCreateDto.getStartValue(),
+                loanCreateDto.getInterestRate(),
+                loanCreateDto.getEndDate(),
+                loanCreateDto.getCurrencySymbol(),
+                account
+        );
     }
 }

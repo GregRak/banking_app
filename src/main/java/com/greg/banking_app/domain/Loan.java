@@ -77,4 +77,15 @@ public class Loan {
         this.active = active;
         this.account = account;
     }
+
+    public Loan(BigDecimal startValue, BigDecimal interestRate, LocalDateTime endDate, CurrencySymbol currencySymbol, Account account) {
+        this.startValue = startValue;
+        this.currentValue = startValue;
+        this.interestRate = interestRate;
+        this.startDate = LocalDateTime.now();
+        this.endDate = endDate;
+        this.currencySymbol = currencySymbol;
+        this.active = true;
+        this.account = account;
+    }
 }
