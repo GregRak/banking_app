@@ -5,14 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
 public class LoanCreateDto {
     private BigDecimal startValue;
     private BigDecimal interestRate;
-    private LocalDateTime endDate;
+    private int period;
     private CurrencySymbol currencySymbol;
     private Long accountId;
 }

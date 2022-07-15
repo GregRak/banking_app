@@ -17,6 +17,7 @@ public class LoanBaseDto {
     private BigDecimal interestRate;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+    private int period;
     private CurrencySymbol currencySymbol;
     private boolean active;
     private Long accountId;

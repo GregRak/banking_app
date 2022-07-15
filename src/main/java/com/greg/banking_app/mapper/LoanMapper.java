@@ -27,6 +27,7 @@ public class LoanMapper {
                 loanBaseDto.getInterestRate(),
                 loanBaseDto.getStartDate(),
                 loanBaseDto.getEndDate(),
+                loanBaseDto.getPeriod(),
                 loanBaseDto.getCurrencySymbol(),
                 loanBaseDto.isActive(),
                 currentAccount
@@ -47,6 +48,7 @@ public class LoanMapper {
                 loan.getInterestRate(),
                 loan.getStartDate(),
                 loan.getEndDate(),
+                loan.getPeriod(),
                 loan.getCurrencySymbol(),
                 loan.isActive(),
                 loan.getAccount().getAccountId()
@@ -58,7 +60,7 @@ public class LoanMapper {
         return new Loan(
                 loanCreateDto.getStartValue(),
                 loanCreateDto.getInterestRate(),
-                loanCreateDto.getEndDate(),
+                loanCreateDto.getPeriod(),
                 loanCreateDto.getCurrencySymbol(),
                 account
         );

@@ -47,6 +47,10 @@ public class Loan {
     private LocalDateTime endDate;
 
     @NotNull
+    @Column(name = "PERIOD")
+    private int period;
+
+    @NotNull
     @Column(name = "CURRENCY")
     private CurrencySymbol currencySymbol;
 
@@ -66,24 +70,26 @@ public class Loan {
     )
     private List<Installment> installments;
 
-    public Loan(Long loanId, BigDecimal startValue, BigDecimal currentValue, BigDecimal interestRate, LocalDateTime startDate, LocalDateTime endDate, CurrencySymbol currencySymbol, boolean active, Account account) {
+    public Loan(Long loanId, BigDecimal startValue, BigDecimal currentValue, BigDecimal interestRate, LocalDateTime startDate, LocalDateTime endDate, int period, CurrencySymbol currencySymbol, boolean active, Account account) {
         this.loanId = loanId;
         this.startValue = startValue;
         this.currentValue = currentValue;
         this.interestRate = interestRate;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.period = period;
         this.currencySymbol = currencySymbol;
         this.active = active;
         this.account = account;
     }
 
-    public Loan(BigDecimal startValue, BigDecimal interestRate, LocalDateTime endDate, CurrencySymbol currencySymbol, Account account) {
+    public Loan(BigDecimal startValue, BigDecimal interestRate, int period, CurrencySymbol currencySymbol, Account account) {
         this.startValue = startValue;
         this.currentValue = startValue;
         this.interestRate = interestRate;
         this.startDate = LocalDateTime.now();
-        this.endDate = endDate;
+        this.endDate = LocalDateTime.now().plusMonths(period);
+        this.period = period;
         this.currencySymbol = currencySymbol;
         this.active = true;
         this.account = account;

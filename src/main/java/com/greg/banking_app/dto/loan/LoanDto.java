@@ -19,6 +19,7 @@ public class LoanDto {
     private BigDecimal interestRate;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+    private int period;
     private CurrencySymbol currencySymbol;
     private boolean active;
     private Long accountId;
@@ -31,6 +32,7 @@ public class LoanDto {
         private BigDecimal interestRate;
         private LocalDateTime startDate;
         private LocalDateTime endDate;
+        private int period;
         private CurrencySymbol currencySymbol;
         private boolean active;
         private Long accountId;
@@ -66,6 +68,11 @@ public class LoanDto {
             return this;
         }
 
+        public LoanDtoBuilder period(int period) {
+            this.period = period;
+            return this;
+        }
+
         public LoanDtoBuilder currencySymbol(CurrencySymbol currencySymbol) {
             this.currencySymbol = currencySymbol;
             return this;
@@ -88,7 +95,7 @@ public class LoanDto {
 
         public LoanDto build() {
             return new LoanDto(
-                    loanId, startValue, currentValue, interestRate, startDate, endDate, currencySymbol, active, accountId, installments
+                    loanId, startValue, currentValue, interestRate, startDate, endDate, period, currencySymbol, active, accountId, installments
             );
         }
     }
