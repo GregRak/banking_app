@@ -2,6 +2,7 @@ package com.greg.banking_app.service;
 
 import com.greg.banking_app.domain.Loan;
 import com.greg.banking_app.exception.AccountNotFoundException;
+import com.greg.banking_app.exception.LoanNotCreatedException;
 import com.greg.banking_app.exception.LoanNotFoundException;
 import com.greg.banking_app.repository.AccountRepository;
 import com.greg.banking_app.repository.LoanRepository;
@@ -16,6 +17,7 @@ public class LoanDbService {
 
     private final LoanRepository loanRepository;
     private final AccountRepository accountRepository;
+    private final InstallmentDbService installmentDbService;
 
     public List<Loan> getAccountLoans(final Long accountId) throws AccountNotFoundException {
         if(accountRepository.existsById(accountId)) {
@@ -29,8 +31,14 @@ public class LoanDbService {
         return loanRepository.findById(loanId).orElseThrow(LoanNotFoundException::new);
     }
 
-    public Loan createLoan(final Loan loan) {
-        return loanRepository.save(loan);
+    public Loan createLoan(final Loan loan) throws LoanNotCreatedException {
+        Loan savedLoan = loanRepository.save(loan);
+        if(savedLoan.isActive()) {
+            installmentDbService.createInstallments(savedLoan);
+            return savedLoan;
+        } else {
+            throw new LoanNotCreatedException();
+        }
     }
 
     public void deActiveLoan(final Long loanId) throws LoanNotFoundException {

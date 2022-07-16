@@ -39,4 +39,9 @@ public class GlobalHttpErrorHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleInstallmentNotFoundException(InstallmentNotFoundException exception) {
         return new ResponseEntity<>("Installment with given Id doesn't exist", HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(LoanNotCreatedException.class)
+    public ResponseEntity<Object> hanldeLoanNotCreatedException(LoanNotCreatedException exception) {
+        return new ResponseEntity<>("Something went wrong. I didn't create new Loan", HttpStatus.SERVICE_UNAVAILABLE);
+    }
 }

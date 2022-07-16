@@ -4,11 +4,11 @@ import com.greg.banking_app.domain.Loan;
 import com.greg.banking_app.dto.loan.LoanBaseDto;
 import com.greg.banking_app.dto.loan.LoanCreateDto;
 import com.greg.banking_app.exception.AccountNotFoundException;
+import com.greg.banking_app.exception.LoanNotCreatedException;
 import com.greg.banking_app.exception.LoanNotFoundException;
 import com.greg.banking_app.mapper.LoanMapper;
 import com.greg.banking_app.service.LoanDbService;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +34,8 @@ public class LoanController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LoanBaseDto> createLoan(@RequestBody LoanCreateDto loanCreateDto) throws AccountNotFoundException {
+    public ResponseEntity<LoanBaseDto> createLoan(@RequestBody LoanCreateDto loanCreateDto)
+            throws AccountNotFoundException, LoanNotCreatedException {
         Loan loan = loanMapper.mapToLoanCreate(loanCreateDto);
         return ResponseEntity.ok(loanMapper.mapToLoanBaseDto(loanDbService.createLoan(loan)));
     }
@@ -46,7 +47,8 @@ public class LoanController {
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LoanBaseDto> updateLoan(@RequestBody LoanBaseDto loanBaseDto) throws AccountNotFoundException, LoanNotFoundException {
+    public ResponseEntity<LoanBaseDto> updateLoan(@RequestBody LoanBaseDto loanBaseDto)
+            throws AccountNotFoundException, LoanNotFoundException {
         Loan loan = loanMapper.mapToLoan(loanBaseDto);
         return ResponseEntity.ok(loanMapper.mapToLoanBaseDto(loanDbService.updateLoan(loan)));
     }
