@@ -18,8 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InstallmentController {
 
-    private InstallmentDbService installmentDbService;
-    private InstallmentMapper installmentMapper;
+    private final InstallmentDbService installmentDbService;
+    private final InstallmentMapper installmentMapper;
 
     @GetMapping("loan/{loanId}")
     public ResponseEntity<List<InstallmentDto>> getInstallments(@PathVariable Long loanId) throws LoanNotFoundException {

@@ -20,10 +20,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LoanController {
 
-    private LoanDbService loanDbService;
-    private LoanMapper loanMapper;
+    private final LoanDbService loanDbService;
+    private final LoanMapper loanMapper;
 
-    @GetMapping("{accountId}")
+    @GetMapping("/account/{accountId}")
     public ResponseEntity<List<LoanBaseDto>> getLoans(@PathVariable Long accountId) throws AccountNotFoundException {
         return ResponseEntity.ok(loanMapper.mapToLoanBaseDtoList(loanDbService.getAccountLoans(accountId)));
     }

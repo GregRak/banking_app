@@ -19,10 +19,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AccountController {
 
-    private AccountDbService accountDbService;
-    private AccountMapper accountMapper;
+    private final AccountDbService accountDbService;
+    private final AccountMapper accountMapper;
 
-    @GetMapping("{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<List<AccountBaseDto>> getAccounts(@PathVariable Long userId) throws UserNotFoundException {
         return ResponseEntity.ok(accountMapper.mapToAccountBaseDtoList(accountDbService.getUserAccounts(userId)));
     }

@@ -21,8 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OperationController {
 
-    private OperationDbService operationDbService;
-    private OperationMapper operationMapper;
+    private final OperationDbService operationDbService;
+    private final OperationMapper operationMapper;
 
     @GetMapping("/account/{accountId}")
     public ResponseEntity<List<OperationDto>> getOperations(@PathVariable Long accountId) throws AccountNotFoundException {

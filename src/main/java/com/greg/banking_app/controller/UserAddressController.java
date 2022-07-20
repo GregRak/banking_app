@@ -18,8 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserAddressController {
 
-    private UserAddressDbService userAddressDbService;
-    private UserAddressMapper userAddressMapper;
+    private final UserAddressDbService userAddressDbService;
+    private final UserAddressMapper userAddressMapper;
 
     @GetMapping("{userId}")
     public ResponseEntity<List<UserAddressDto>> getUserAddresses(@PathVariable Long userId) throws UserNotFoundException {
