@@ -6,7 +6,6 @@ import com.greg.banking_app.domain.User;
 import com.greg.banking_app.dto.account.AccountBaseDto;
 import com.greg.banking_app.dto.account.AccountCreateDto;
 import com.greg.banking_app.enums.CurrencySymbol;
-import com.greg.banking_app.exception.UserNotFoundException;
 import com.greg.banking_app.mapper.AccountMapper;
 import com.greg.banking_app.service.AccountDbService;
 import org.hamcrest.Matchers;
@@ -28,7 +27,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
@@ -48,10 +46,15 @@ class AccountControllerTest {
     @MockBean
     private AccountMapper accountMapper;
 
+    private AccountBaseDto getAccountBaseDto() {
+        return new AccountBaseDto(
+                1L, "123456789", LocalDate.of(2022, 7, 11),
+                null, new BigDecimal("100"), CurrencySymbol.PLN, true, 10L);
+    }
+
     @Test
     void shouldReturnEmptyListUserAccounts() throws Exception {
         //Given
-        when(accountDbService.getUserAccounts(anyLong())).thenReturn(List.of());
         when(accountMapper.mapToAccountBaseDtoList(accountDbService.getUserAccounts(anyLong()))).thenReturn(List.of());
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
@@ -65,9 +68,7 @@ class AccountControllerTest {
     void shouldReturnListUserAccounts() throws Exception {
         //Given
         List<AccountBaseDto> dtos = List.of(
-                new AccountBaseDto(
-                        1L, "123456789", LocalDate.of(2022, 7, 11),
-                        null, new BigDecimal("100"), CurrencySymbol.PLN, true, 10L),
+                getAccountBaseDto(),
                 new AccountBaseDto(
                         2L, "123456700", LocalDate.of(2022, 3, 11),
                         LocalDate.of(2022, 5, 14), new BigDecimal("200"), CurrencySymbol.EUR, false, 10L));
@@ -86,9 +87,7 @@ class AccountControllerTest {
     @Test
     void shouldGetUserAccount() throws Exception {
         //Given
-        AccountBaseDto dto = new AccountBaseDto(
-                        1L, "123456789", LocalDate.of(2022, 7, 11),
-                        null, new BigDecimal("100"), CurrencySymbol.PLN, true, 10L);
+        AccountBaseDto dto = getAccountBaseDto();
         when(accountMapper.mapToAccountBaseDto(accountDbService.getUserAccount(anyLong(), anyLong()))).thenReturn(dto);
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
@@ -105,9 +104,7 @@ class AccountControllerTest {
         AccountCreateDto createDto = new AccountCreateDto(CurrencySymbol.EUR, 1L);
         User user = new User(1L, "123456789", "John", "Smith", "email", "11111", true);
         Account account = new Account(1L, "12345", LocalDate.of(2022,7,11), null, BigDecimal.ZERO, CurrencySymbol.EUR, true, user);
-        AccountBaseDto dto = new AccountBaseDto(
-                1L, "123456789", LocalDate.of(2022, 7, 11),
-                null, new BigDecimal("100"), CurrencySymbol.PLN, true, 10L);
+        AccountBaseDto dto = getAccountBaseDto();
         when(accountMapper.mapToCreateAccount(any(AccountCreateDto.class))).thenReturn(account);
         when(accountMapper.mapToAccountBaseDto(accountDbService.createAccount(any(Account.class)))).thenReturn(dto);
 

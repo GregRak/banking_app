@@ -23,9 +23,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.anyLong;
 
@@ -45,14 +43,25 @@ class InstallmentControllerTest {
     @MockBean
     private Loan loan;
 
+
+    private InstallmentDto getUnpaidInstallmentDto() {
+        return new InstallmentDto(1L, new BigDecimal(100), new BigDecimal(100),
+                LocalDate.of(2022, 8, 10), null, false, 10L);
+    }
+
+    private InstallmentDto getPaidInstallmentDto() {
+        return new InstallmentDto(1L, new BigDecimal(100), new BigDecimal(0),
+                LocalDate.of(2022, 7, 10), LocalDate.of(2022, 7, 9), true, 10L);
+    }
+
     @Test
     void shouldReturnEmptyInstallmentsList() throws Exception {
         //Given
         when(installmentMapper.mapToInstallmentDtoList(installmentDbService.getLoanInstallments(anyLong()))).thenReturn(List.of());
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/v1/installments/loan/{loanId}", 1)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .get("/v1/installments/loan/{loanId}", 1)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(0)));
     }
@@ -61,15 +70,12 @@ class InstallmentControllerTest {
     void shouldReturnInstallmentsList() throws Exception {
         //Given
         List<InstallmentDto> dtos = List.of(
-                new InstallmentDto(1L, new BigDecimal(100), new BigDecimal(100),
-                        LocalDate.of(2022, 8, 10), null, false, 10L),
-                new InstallmentDto(1L, new BigDecimal(100), new BigDecimal(0),
-                        LocalDate.of(2022, 7, 10), LocalDate.of(2022, 7, 9), true, 10L));
+                getUnpaidInstallmentDto(), getPaidInstallmentDto());
         when(installmentMapper.mapToInstallmentDtoList(installmentDbService.getLoanInstallments(anyLong()))).thenReturn(dtos);
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/v1/installments/loan/{loanId}", 1)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .get("/v1/installments/loan/{loanId}", 1)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].installmentValue", Matchers.is(100)))
@@ -81,26 +87,23 @@ class InstallmentControllerTest {
     @Test
     void shouldReturnInstallment() throws Exception {
         //Given
-       InstallmentDto dto =
-                new InstallmentDto(1L, new BigDecimal(100), new BigDecimal(100),
-                        LocalDate.of(2022, 8, 10), null, false, 10L);
-       when(installmentMapper.mapToInstallmentDto(installmentDbService.getInstallment(anyLong()))).thenReturn(dto);
+        InstallmentDto dto = getUnpaidInstallmentDto();
+        when(installmentMapper.mapToInstallmentDto(installmentDbService.getInstallment(anyLong()))).thenReturn(dto);
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/v1/installments/{loanId}", 1)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .get("/v1/installments/{loanId}", 1)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.loanId", Matchers.is(10)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.installmentValue", Matchers.is(100)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.paymentDate", Matchers.nullValue()));
     }
 
+
     @Test
     void shouldUpdateInstallment() throws Exception {
         //Given
-        InstallmentDto dto =
-                new InstallmentDto(1L, new BigDecimal(100), new BigDecimal(0),
-                        LocalDate.of(2022, 7, 10), LocalDate.of(2022, 7, 9), true, 10L);
+        InstallmentDto dto = getPaidInstallmentDto();
         Installment installment = new Installment(new BigDecimal(100), LocalDate.of(2022, 7, 20), loan);
         when(installmentMapper.mapToInstallment(any(InstallmentDto.class))).thenReturn(installment);
         when(installmentMapper.mapToInstallmentDto(installmentDbService.updateInstallment(installment))).thenReturn(dto);
@@ -109,10 +112,10 @@ class InstallmentControllerTest {
         String jsonContent = gson.toJson(dto);
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
-                .put("/v1/installments")
-                .contentType(MediaType.APPLICATION_JSON)
-                .characterEncoding("UTF-8")
-                .content(jsonContent))
+                        .put("/v1/installments")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")
+                        .content(jsonContent))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.loanId", Matchers.is(10)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.installmentValue", Matchers.is(100)))

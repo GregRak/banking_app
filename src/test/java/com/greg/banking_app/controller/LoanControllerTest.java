@@ -2,7 +2,6 @@ package com.greg.banking_app.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.greg.banking_app.domain.Account;
 import com.greg.banking_app.domain.Loan;
 import com.greg.banking_app.dto.loan.LoanBaseDto;
 import com.greg.banking_app.dto.loan.LoanCreateDto;
@@ -25,7 +24,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
