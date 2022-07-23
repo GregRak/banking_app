@@ -7,7 +7,6 @@ import com.greg.banking_app.exception.UserNotFoundException;
 import com.greg.banking_app.mapper.UserMapper;
 import com.greg.banking_app.service.UserDbService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

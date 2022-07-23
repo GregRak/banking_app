@@ -43,9 +43,4 @@ public class AccountController {
         accountDbService.deActiveAccount(accountId);
         return "Account is deActivated";
     }
-//
-//    @PutMapping
-//    public String updateAccount() {
-//        return "account updated";
-//    }
 }

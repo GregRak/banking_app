@@ -3,7 +3,6 @@ package com.greg.banking_app.dto.currency;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import javax.persistence.Column;
 import java.math.BigDecimal;
 
 @Getter
