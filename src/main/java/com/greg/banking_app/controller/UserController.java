@@ -24,13 +24,12 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserBaseDto>> getUsers() {
-        List<User> users = userDbService.getAllUsers();
-        return ResponseEntity.ok(userMapper.mapToUserBaseDtoList(users));
+        return ResponseEntity.ok(userMapper.mapToUserBaseDtoList(userDbService.getAllUsers()));
     }
 
     @GetMapping("{userId}")
     public ResponseEntity<UserBaseDto> getUser(@PathVariable Long userId) throws UserNotFoundException {
-            return new ResponseEntity<>(userMapper.mapToUserBaseDto(userDbService.getUser(userId)), HttpStatus.OK);
+            return ResponseEntity.ok(userMapper.mapToUserBaseDto(userDbService.getUser(userId)));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
