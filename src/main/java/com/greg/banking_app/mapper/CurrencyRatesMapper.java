@@ -3,8 +3,6 @@ package com.greg.banking_app.mapper;
 import com.greg.banking_app.domain.CurrencyRates;
 import com.greg.banking_app.dto.NBPClient.NBPCurrencyDto;
 import com.greg.banking_app.dto.NBPClient.NBPTableCDto;
-import com.greg.banking_app.repository.CurrencyRatesRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,9 +10,6 @@ import java.util.List;
 
 @Service
 public class CurrencyRatesMapper {
-
-    @Autowired
-    private CurrencyRatesRepository currencyRatesRepository;
 
     public List<CurrencyRates> mapToCurrencyValue(final NBPTableCDto nbpTableCDto) {
         List<CurrencyRates> list = new ArrayList<>();
