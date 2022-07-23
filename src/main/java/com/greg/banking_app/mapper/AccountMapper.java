@@ -18,20 +18,6 @@ public class AccountMapper {
     @Autowired
     private UserRepository userRepository;
 
-    public Account mapToAccount(final AccountBaseDto accountDto) throws UserNotFoundException {
-        User currentUser = userRepository.findById(accountDto.getUserId()).orElseThrow(UserNotFoundException::new);
-            return new Account(
-                    accountDto.getAccountId(),
-                    accountDto.getAccountNumber(),
-                    accountDto.getOpenDate(),
-                    accountDto.getCloseDate(),
-                    accountDto.getPresentValue(),
-                    accountDto.getCurrencySymbol(),
-                    accountDto.isActive(),
-                    currentUser
-            );
-    }
-
     public AccountBaseDto mapToAccountBaseDto(final Account account) {
         return new AccountBaseDto(
                 account.getAccountId(),
