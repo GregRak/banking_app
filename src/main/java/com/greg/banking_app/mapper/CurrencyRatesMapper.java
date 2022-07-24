@@ -3,15 +3,18 @@ package com.greg.banking_app.mapper;
 import com.greg.banking_app.domain.CurrencyRates;
 import com.greg.banking_app.dto.NBPClient.NBPCurrencyDto;
 import com.greg.banking_app.dto.NBPClient.NBPTableCDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class CurrencyRatesMapper {
 
     public List<CurrencyRates> mapToCurrencyValue(final NBPTableCDto nbpTableCDto) {
+        log.info("I'm mapping data from the NBP...");
         List<CurrencyRates> list = new ArrayList<>();
         List<NBPCurrencyDto> currencies = nbpTableCDto.getRates();
         String table = nbpTableCDto.getTable();

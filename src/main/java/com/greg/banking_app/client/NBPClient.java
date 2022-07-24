@@ -25,15 +25,17 @@ public class NBPClient {
     private String NBPApiEndpoint;
 
     public List<NBPTableCDto> getNBPTableC() {
+        LOGGER.info("I am starting to download data from the NBP...");
         NBPTableCDto[] tableResponse = restTemplate.getForObject(
                 NBPApiEndpoint + "/tables/c", NBPTableCDto[].class);
 
         try {
+            LOGGER.info("Data from the NBP have been downloaded");
             return Optional.ofNullable(tableResponse)
                     .map(Arrays::asList)
                     .orElse(Collections.emptyList());
         } catch (RestClientException e) {
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.error("I ran into a problem..." + e.getMessage(), e);
             return Collections.emptyList();
         }
     }
