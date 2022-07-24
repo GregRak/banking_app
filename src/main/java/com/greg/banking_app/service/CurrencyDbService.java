@@ -1,6 +1,7 @@
 package com.greg.banking_app.service;
 
 import com.greg.banking_app.domain.CurrencyRates;
+import com.greg.banking_app.exception.CurrencyNotFoundException;
 import com.greg.banking_app.repository.CurrencyRatesRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,5 +35,17 @@ public class CurrencyDbService {
                 currencyRatesRepository.save(currentCurrency);
             }
         }
+    }
+
+    public CurrencyRates getCurrencyRate(String isoCode) throws CurrencyNotFoundException {
+        if(currencyRatesRepository.existsByCurrencyIsoCode(isoCode)) {
+            return currencyRatesRepository.findByCurrencyIsoCode(isoCode);
+        } else {
+            throw new CurrencyNotFoundException();
+        }
+    }
+
+    public List<CurrencyRates> getCurrencyRatesList() {
+        return currencyRatesRepository.findAll();
     }
 }

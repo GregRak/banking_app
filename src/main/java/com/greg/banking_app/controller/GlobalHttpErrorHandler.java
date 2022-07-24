@@ -41,7 +41,12 @@ public class GlobalHttpErrorHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(LoanNotCreatedException.class)
-    public ResponseEntity<Object> hanldeLoanNotCreatedException(LoanNotCreatedException exception) {
+    public ResponseEntity<Object> handleLoanNotCreatedException(LoanNotCreatedException exception) {
         return new ResponseEntity<>("Something went wrong. I didn't create new Loan", HttpStatus.SERVICE_UNAVAILABLE);
+    }
+
+    @ExceptionHandler(CurrencyNotFoundException.class)
+    public ResponseEntity<Object> handleCurrencyNotFoundException(CurrencyNotFoundException exception) {
+        return new ResponseEntity<>("You entered the wrong currency IsoCode. Please check it and send it again.", HttpStatus.BAD_REQUEST);
     }
 }

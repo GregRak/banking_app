@@ -3,11 +3,13 @@ package com.greg.banking_app.mapper;
 import com.greg.banking_app.domain.CurrencyRates;
 import com.greg.banking_app.dto.NBPClient.NBPCurrencyDto;
 import com.greg.banking_app.dto.NBPClient.NBPTableCDto;
+import com.greg.banking_app.dto.currency.CurrencyDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -32,5 +34,23 @@ public class CurrencyRatesMapper {
             list.add(currentCurrency);
         }
         return list;
+    }
+
+    public CurrencyDto mapToCurrencyDto(CurrencyRates currencyRates) {
+        return new CurrencyDto(
+                currencyRates.getCurrencyId(),
+                currencyRates.getTable(),
+                currencyRates.getTableNo(),
+                currencyRates.getTableDate(),
+                currencyRates.getCurrencyIsoCode(),
+                currencyRates.getBuyRate(),
+                currencyRates.getSellRate()
+        );
+    }
+
+    public List<CurrencyDto> mapToCurrencyDtoList(List<CurrencyRates> currencyRates) {
+        return currencyRates.stream()
+                .map(this::mapToCurrencyDto)
+                .collect(Collectors.toList());
     }
 }

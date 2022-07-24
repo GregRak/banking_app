@@ -1,6 +1,8 @@
 package com.greg.banking_app.controller;
 
 import com.greg.banking_app.client.NBPClient;
+import com.greg.banking_app.mapper.CurrencyRatesMapper;
+import com.greg.banking_app.service.CurrencyDbService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -20,6 +22,12 @@ class NBPControllerTest {
 
     @MockBean
     private NBPClient client;
+
+    @MockBean
+    private CurrencyRatesMapper mapper;
+
+    @MockBean
+    private CurrencyDbService dbService;
 
     @Test
     void shouldGetTableC() throws Exception {
