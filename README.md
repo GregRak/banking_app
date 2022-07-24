@@ -8,7 +8,7 @@ The project was carried out by a Junior Java Developer. I created a back-end of 
 2. [Assumptions](#assumptions)
 3. [Getting Started](#getting-started)
 4. [Api](#api)
-5. [Further development](#Further development)
+5. [Further development](#further-development)
 
 ## Technologies Used
 ```
