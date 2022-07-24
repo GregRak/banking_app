@@ -13,7 +13,5 @@ import java.util.List;
 @Transactional
 public interface LoanRepository extends JpaRepository<Loan, Long> {
 
-    List<Loan> findByInterestRate(BigDecimal interestRate);
-    List<Loan> findByCurrencySymbol(CurrencySymbol currencySymbol);
     List<Loan> findByAccount_AccountId(Long accountId);
 }

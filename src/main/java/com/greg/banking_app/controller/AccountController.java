@@ -39,7 +39,7 @@ public class AccountController {
     }
 
     @DeleteMapping("{accountId}")
-    public String deactiveAccount(@PathVariable Long accountId) throws AccountNotFoundException {
+    public String deActiveAccount(@PathVariable Long accountId) throws AccountNotFoundException {
         accountDbService.deActiveAccount(accountId);
         return "Account is deActivated";
     }

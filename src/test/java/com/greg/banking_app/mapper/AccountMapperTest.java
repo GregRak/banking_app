@@ -43,10 +43,7 @@ class AccountMapperTest {
     @Test
     void mapToAccountBaseDtoTest() {
         //Given
-        User user = new User();
-        Account account =
-                new Account(1L, "123456789", LocalDate.of(2022, 7, 1), null,
-                        new BigDecimal(100), CurrencySymbol.USD, true, user);
+        Account account = prepareAccountsList().get(0);
         //When
         AccountBaseDto baseDto = accountMapper.mapToAccountBaseDto(account);
         //Then

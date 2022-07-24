@@ -18,16 +18,6 @@ public class OperationMapper {
     @Autowired
     private AccountRepository accountRepository;
 
-    public Operation mapToOperation(final OperationDto operationDto) throws AccountNotFoundException {
-        Account account = accountRepository.findById(operationDto.getAccountId()).orElseThrow(AccountNotFoundException::new);
-        return new Operation(operationDto.getOperationId(),
-                operationDto.getOperationType(),
-                operationDto.getOperationValue(),
-                operationDto.getCurrencySymbol(),
-                operationDto.getOperationDate(),
-                account);
-    }
-
     public OperationDto mapToOperationDto(final Operation operation) {
         return new OperationDto(
                 operation.getOperationId(),

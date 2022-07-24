@@ -12,10 +12,6 @@ import java.util.List;
 @Transactional
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    List<Account> findByActive(boolean active);
-
-    List<Account> findByCurrencySymbol(CurrencySymbol currencySymbol);
-
     List<Account> findByUser_UserId(Long userId);
 
     Account findByUser_UserIdAndAccountId(Long userId, Long accountId);

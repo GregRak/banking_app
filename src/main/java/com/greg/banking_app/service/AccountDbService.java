@@ -56,12 +56,4 @@ public class AccountDbService {
             throw new AccountNotFoundException();
         }
     }
-
-//    public Account updateAccount(final Account account) throws AccountNotFoundException {
-//        if(accountRepository.existsById(account.getAccountId())) {
-//            return accountRepository.save(account);
-//        } else {
-//            throw new AccountNotFoundException();
-//        }
-//    }
 }

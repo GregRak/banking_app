@@ -4,11 +4,9 @@ import com.greg.banking_app.domain.Installment;
 import com.greg.banking_app.domain.Loan;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

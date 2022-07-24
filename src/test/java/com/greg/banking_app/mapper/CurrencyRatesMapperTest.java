@@ -22,11 +22,11 @@ class CurrencyRatesMapperTest {
     void mapToCurrencyValueTest() {
         //Given
         NBPCurrencyDto currencyDto1 =
-                new NBPCurrencyDto("USD", new BigDecimal(4.4321), new BigDecimal(4.5432));
+                new NBPCurrencyDto("USD", new BigDecimal("4.4321"), new BigDecimal("4.5432"));
         NBPCurrencyDto currencyDto2 =
-                new NBPCurrencyDto("EUR", new BigDecimal(5.4321), new BigDecimal(5.5432));
+                new NBPCurrencyDto("EUR", new BigDecimal("5.4321"), new BigDecimal("5.5432"));
         NBPCurrencyDto currencyDto3 =
-                new NBPCurrencyDto("CHF", new BigDecimal(6.4321), new BigDecimal(6.5432));
+                new NBPCurrencyDto("CHF", new BigDecimal("6.4321"), new BigDecimal("6.5432"));
         List<NBPCurrencyDto> rates = List.of(currencyDto1, currencyDto2, currencyDto3);
         NBPTableCDto dto = new NBPTableCDto("C", "1111/C/Test", "TestDate", rates);
         //When
@@ -34,8 +34,8 @@ class CurrencyRatesMapperTest {
         //Then
         assertEquals(3, list.size());
         assertEquals("1111/C/Test", list.get(0).getTableNo());
-        assertEquals(new BigDecimal(5.4321), list.get(1).getBuyRate());
-        assertEquals(new BigDecimal(6.5432), list.get(2).getSellRate());
+        assertEquals(new BigDecimal("5.4321"), list.get(1).getBuyRate());
+        assertEquals(new BigDecimal("6.5432"), list.get(2).getSellRate());
         assertNotEquals("USD", list.get(1).getCurrencyIsoCode());
         assertEquals("CHF", list.get(2).getCurrencyIsoCode());
     }

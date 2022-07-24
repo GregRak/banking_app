@@ -11,7 +11,5 @@ import java.util.List;
 @Transactional
 public interface InstallmentRepository extends JpaRepository<Installment, Long> {
 
-    List<Installment> findByLoan_LoanIdAndPaid(Long loanId, boolean isPaid);
-
     List<Installment> findByLoan_LoanId(Long loanId);
 }
