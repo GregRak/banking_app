@@ -73,7 +73,7 @@ class CurrencyRatesMapperTest {
     }
 
     private List<CurrencyRates> getCurrencyRatesList() {
-        List<CurrencyRates> rates = List.of(
+        return List.of(
                 new CurrencyRates(1L, "C", "TestTable", "2022-07-10",
                         "USD", new BigDecimal("4.5555"), new BigDecimal("4.6666")),
                 new CurrencyRates(2L, "C", "TestTable", "2022-07-10",
@@ -81,6 +81,5 @@ class CurrencyRatesMapperTest {
                 new CurrencyRates(3L, "C", "TestTable", "2022-07-10",
                         "EUR", new BigDecimal("5.0000"), new BigDecimal("5.2000"))
         );
-        return rates;
     }
 }

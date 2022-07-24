@@ -84,7 +84,7 @@ class NBPControllerTest {
     }
 
     private List<CurrencyDto> getCurrencyDtoList() {
-        List<CurrencyDto> dtos = List.of(
+        return List.of(
                 new CurrencyDto(1L, "C", "TestTable", "2022-07-10",
                 "USD", new BigDecimal("4.5555"), new BigDecimal("4.6666")),
                 new CurrencyDto(2L, "C", "TestTable", "2022-07-10",
@@ -92,6 +92,5 @@ class NBPControllerTest {
                 new CurrencyDto(3L, "C", "TestTable", "2022-07-10",
                         "EUR", new BigDecimal("5.0000"), new BigDecimal("5.2000"))
         );
-        return dtos;
     }
 }
