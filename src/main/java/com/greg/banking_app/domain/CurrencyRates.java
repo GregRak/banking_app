@@ -23,7 +23,7 @@ public class CurrencyRates {
     @Column(name = "ID_CURRENCY", unique = true)
     private Long currencyId;
 
-    @Column(name = "TABLE")
+    @Column(name = "TABLE_NBP")
     private String table;
 
     @Column(name = "TABLE_NO")
