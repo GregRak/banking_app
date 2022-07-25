@@ -34,7 +34,7 @@ public class OverdueVerifier {
     private List<Installment> getInstallments() {
         return installmentDbService.getAllInstallment().stream()
                 .filter(installment -> !installment.isPaid())
-                .filter(installment -> installment.getDueDate().isBefore(LocalDate.now()))
+                .filter(installment -> installment.getDueDate().isBefore(LocalDate.now().minusDays(1)))
                 .collect(Collectors.toList());
     }
 }
