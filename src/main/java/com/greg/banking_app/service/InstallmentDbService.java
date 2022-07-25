@@ -44,4 +44,8 @@ public class InstallmentDbService {
         List<Installment> installments = scheduleCreator.createRepaymentSchedule(loan);
         installmentRepository.saveAll(installments);
     }
+
+    public List<Installment> getAllInstallment() {
+        return installmentRepository.findAll();
+    }
 }
